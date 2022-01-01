@@ -97,10 +97,14 @@ def returnMap(img_path,pixSize,pSize):
             bit = colors[pixCol]
             pushArray += bit
             pixel+= pixSize
-        bitmap.append(pushArray)
-        pushArray = ""
         pixel = 0
-        row += pixSize
+        if len(pushArray) == pSize:
+            row += pixSize
+            bitmap.append(pushArray)
+        else:
+            print("Image corruption on row %i.\n" % ((row-pixSize/2)/pixSize))
+        pushArray = ""
+        
         printProgressBar((row-pixSize/2),width,prefix="Mapping:",suffix="Mapped",length=50)
     use_map = {v:k for k,v in colors.items()}
     print("\n\n\n\n\n\n\n\n\n\n\n\nvar scene = {\nart:")
