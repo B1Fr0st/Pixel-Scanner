@@ -126,7 +126,8 @@ def returnMap(img_path,pixSize,pSize):
     print("Time taken to convert image:%i secs." %(elapsed))
 
 pxSize = int(input("Pixel size specified on Pixilart:"))
+imgPath = input("File Path:")
 imgg = Image.open("PixelArt.png").convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
-returnMap("PixelArt.png",pixSize,pxSize)
+returnMap(imgPath,pixSize,pxSize)
