@@ -127,7 +127,10 @@ def returnMap(img_path,pixSize,pSize):
 
 pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = input("File Path:")
-imgg = Image.open("PixelArt.png").convert("RGB")
+if imgPath == "DEFAULT":
+    imgPath = "PixelArt.png"
+
+imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
 returnMap(imgPath,pixSize,pxSize)
