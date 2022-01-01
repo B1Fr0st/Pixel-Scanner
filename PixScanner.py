@@ -1,10 +1,9 @@
 from PIL import Image
 import time
+import pyperclip
 
-#this is really inefficent, so only use it on pixel arts 100 or smaller, anything above that:
-# A:Takes forever
-# B:Corrupts
-# C:Does both
+#the only modules required are pyperclip and Pillow.
+#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the user?)
 
 
 
@@ -74,9 +73,10 @@ def ReturnColors(img_path,pixSize,pSize):
     end = time.time()
     elapsed = end-start
     use_map = {v:k for k,v in colors.items()}
-    print("\n\n\n\n\n\n\n\n\n\n\n\nvar scene = {\nart:")
-    print(str(bitmap)+",")
-    print("palette:{")
+    #final string making a comeback
+    finalString = "var scene = {\nart:\n"
+    finalString += str(bitmap)+",\n"
+    finalString += "palette:{"
     #here is going to be the code for making the colors not need adding "color", and if they do, it'll make it easier
     for item in use_map.items():
         itemm = item
@@ -88,11 +88,14 @@ def ReturnColors(img_path,pixSize,pSize):
         item += "'"+itemm[0]+"':" # adds in the key
         item += "color"+str(itemm[1]) #adds in the value.
         item += ","
-        print(item)
-    print("},")
-    print("pixSize:"+str(pixSize))
-    print("};")
-
+        finalString += item+"\n"
+    finalString += "},\n"
+    finalString += "pixSize:"+str(pixSize)
+    finalString += "\n};"
+    copier = input("Copy data to clipboard? [Y\N]")
+    if copier == "Y":
+        pyperclip.copy(finalString)
+        print("Data copied to clipboard.")
 pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = input("File Path:")
 if imgPath == "DEFAULT":
