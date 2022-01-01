@@ -46,9 +46,11 @@ def ReturnColors(img_path,pixSize,pSize):
     print("Scanning all pixels to grab all possible colors.")
     img = Image.open(img_path).convert('RGBA')
     width,height = img.size
-    colors = []
+    colors = {}
     row = pixSize/2
     pixel = pixSize/2
+    bitmap = []
+    pushArray = ""
     printProgressBar(0,width,prefix="Scanning:",suffix="Complete",length = 50)
     start = time.time()
     while row < height:
@@ -57,46 +59,10 @@ def ReturnColors(img_path,pixSize,pSize):
             if pixCol in colors:
                 pass
             elif pixCol not in colors:
-                colors.append(pixCol)
-            pixel += pixSize
-        pixel = 0
-        row += pixSize
-        printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
-    end = time.time()
-    elapsed = end-start
-    print("Number of colors in image:"+str(len(colors)))
-    print("Time taken to map colors:%i secs." %(elapsed))
-    colorDict = {}
-    i = 0
-    while i < len(colors):
-        colorDict[colors[i]] = str(i)
-        i += 1
-    print("Colors mapped and converted to dictionary. Returning colorDict")
-    return colorDict
-
-
-
-
-
-
-
-def returnMap(img_path,pixSize,pSize):
-    print("Beginning translation of image into bitmap.")
-    img = Image.open(img_path).convert("RGBA")
-    width,height = img.size
-    colors = ReturnColors(img_path,pixSize,pSize)
-    row = pixSize/2
-    pixel = pixSize/2
-    bitmap = []
-    pushArray = ""
-    printProgressBar(0,width,prefix="Mapping:",suffix="Mapped",length=50)
-    start = time.time()
-    while row < height:
-        while pixel < width:
-            pixCol = get_pixel(img_path,pixel,row)#Gets current pixel
+                colors[pixCol] = str(len(colors))
             bit = colors[pixCol]
             pushArray += bit
-            pixel+= pixSize
+            pixel += pixSize
         pixel = 0
         if len(pushArray) == pSize:
             row += pixSize
@@ -104,8 +70,9 @@ def returnMap(img_path,pixSize,pSize):
         else:
             print("Image corruption on row %i.\n" % ((row-pixSize/2)/pixSize))
         pushArray = ""
-        
-        printProgressBar((row-pixSize/2),width,prefix="Mapping:",suffix="Mapped",length=50)
+        printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
+    end = time.time()
+    elapsed = end-start
     use_map = {v:k for k,v in colors.items()}
     print("\n\n\n\n\n\n\n\n\n\n\n\nvar scene = {\nart:")
     print(str(bitmap)+",")
@@ -125,9 +92,6 @@ def returnMap(img_path,pixSize,pSize):
     print("},")
     print("pixSize:"+str(pixSize))
     print("};")
-    end = time.time()
-    elapsed = end-start
-    print("Time taken to convert image:%i secs." %(elapsed))
 
 pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = input("File Path:")
@@ -137,4 +101,4 @@ if imgPath == "DEFAULT":
 imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
-returnMap(imgPath,pixSize,pxSize)
+ReturnColors(imgPath,pixSize,pxSize)
