@@ -3,6 +3,7 @@ import time
 import pyperclip
 
 #the only modules required are pyperclip and Pillow.
+#currently, 400x400 corrupts on row 27. [Reproduced twice.]
 #TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the user?)
 
 
@@ -92,7 +93,7 @@ def ReturnColors(img_path,pixSize,pSize):
     finalString += "},\n"
     finalString += "pixSize:"+str(pixSize)
     finalString += "\n};"
-    copier = input("Copy data to clipboard? [Y\N]")
+    copier = input("Copy data to clipboard? [Y\\N]")
     if copier == "Y":
         pyperclip.copy(finalString)
         print("Data copied to clipboard.")
