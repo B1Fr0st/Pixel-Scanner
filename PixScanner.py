@@ -4,7 +4,7 @@ import pyperclip
 
 #the only modules required are pyperclip and Pillow.
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
-#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the [FINISHEotD:Rewre final string code, and used pyperclip to copy it directly to the user (with confirmation and permiss]user?)
+#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the user?)
 
 
 
@@ -17,7 +17,7 @@ def get_pixel(img_path,x,y):
 
 #progressbar designed by @greenstick on Stack Exchange
 # Print iterations progress
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '#', printEnd = "\r"):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -101,7 +101,9 @@ pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = input("File Path:")
 if imgPath == "DEFAULT":
     imgPath = "PixelArt.png"
-
+start = time.time()
+get_pixel(imgPath,0,0)
+finish = time.time()
 imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
