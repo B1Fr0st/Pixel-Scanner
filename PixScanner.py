@@ -4,7 +4,7 @@ import pyperclip
 
 #the only modules required are pyperclip and Pillow.
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
-#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the user?)
+#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the [FINISHEotD:Rewre final string code, and used pyperclip to copy it directly to the user (with confirmation and permiss]user?)
 
 
 
