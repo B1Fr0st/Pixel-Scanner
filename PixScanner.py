@@ -102,8 +102,13 @@ imgPath = input("File Path:")
 if imgPath == "DEFAULT":
     imgPath = "PixelArt.png"
 start = time.time()
-get_pixel(imgPath,0,0)
+for i in range(0,pxSize):
+	get_pixel(imgPath,0,0)
+
 finish = time.time()
+elapse = finish-start
+print("Time taken to read %i pixels:%i seconds"%(pxSize,elapse))
+print("Estimated image conversion time:%i minutes"%(elapse*pxSize/60))
 imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
