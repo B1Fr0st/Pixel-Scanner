@@ -4,12 +4,12 @@ import pyperclip
 
 #the only modules required are pyperclip and Pillow.
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
-#TODO:Add in either Run-length Encoding, or find a way to circumvent the write limit of Python(copying the data directly to the user?)
+#TODO:Make the user experience more friendly(Make url an input at beginning?)
 from bs4 import BeautifulSoup
 import requests,urllib.request,shutil
 
 
-url = "https://art.pixilart.com/516cc23806703d7.png"#this is the image I am trying to use.
+url = "https://art.pixilart.com/00b57f7cf75c5de.png"#this is the image I am trying to use.
 
 def download_image(image):
 	response = requests.get(image,stream=True)
@@ -81,8 +81,10 @@ def ReturnColors(img_path,pixSize,pSize):
             row += pixSize
             bitmap.append(pushArray)
         else:
-            print("Image corruption on row %i.\n" % ((row-pixSize/2)/pixSize))
-						print("Exiting program due to corruption.")
+          print("Image corruption on row %i.\n" % ((row-pixSize/2)/pixSize))
+
+
+
         pushArray = ""
         printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
     end = time.time()
