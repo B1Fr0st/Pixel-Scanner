@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 import requests,urllib.request,shutil
 
 
-url = "https://art.pixilart.com/00b57f7cf75c5de.png"#this is the image I am trying to use.
+
 
 def download_image(image):
 	response = requests.get(image,stream=True)
@@ -18,7 +18,6 @@ def download_image(image):
 	response.raw.decode_content = True
 	shutil.copyfileobj(response.raw,file)
 	del response
-download_image(url)
 
 
 
@@ -113,10 +112,15 @@ def ReturnColors(img_path,pixSize,pSize):
     if copier == "Y":
         pyperclip.copy(finalString)
         print("Data copied to clipboard.")
+
+isUrl = input("Did you download the image already or are you going to use a url? [True/False; True for downloaded]")
+if isUrl:
+	pass
+else:
+	url = input("URL:")#this is the image I am trying to use.
+	download_image(url,"PixelArt.png")
 pxSize = int(input("Pixel size specified on Pixilart:"))
-imgPath = input("File Path:")
-if imgPath == "DEFAULT":
-    imgPath = "PixelArt.png"
+imgPath = "PixelArt.png"
 start = time.time()
 for i in range(0,pxSize):
 	get_pixel(imgPath,0,0)
