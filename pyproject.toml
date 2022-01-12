@@ -7,7 +7,6 @@ authors = ["BiFr0st <<>>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 pyperclip = "^1.8.2"
-beautifulsoup4 = "^4.10.0"
 
 [tool.poetry.dev-dependencies]
 
