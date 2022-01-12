@@ -1,19 +1,20 @@
 from PIL import Image
 import time
 import pyperclip
-
+from os import remove
 #the only modules required are pyperclip and Pillow.
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
-#TODO:Make the user experience more friendly(Make url an input at beginning?)
+#TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
+#TODO:Add way to copy raw data while using replit.
 from bs4 import BeautifulSoup
 import requests,urllib.request,shutil
 
 
 
 
-def download_image(image):
+def download_image(image,name):
 	response = requests.get(image,stream=True)
-	file = open("./PixelArt.png","wb")
+	file = open("./"+name,"wb")
 
 	response.raw.decode_content = True
 	shutil.copyfileobj(response.raw,file)
@@ -110,11 +111,12 @@ def ReturnColors(img_path,pixSize,pSize):
     finalString += "\n};"
     copier = input("Copy data to clipboard? [Y\\N]")
     if copier == "Y":
-        pyperclip.copy(finalString)
-        print("Data copied to clipboard.")
+      pyperclip.copy(finalString)
+      print("Data copied to clipboard.")
 
 isUrl = input("Did you download the image already or are you going to use a url? [True/False; True for downloaded]")
-if isUrl:
+deleteImg = input("Would you like to delete the image after it is converted?[True\\False]")
+if isUrl == "True":
 	pass
 else:
 	url = input("URL:")#this is the image I am trying to use.
@@ -133,3 +135,5 @@ imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
 ReturnColors(imgPath,pixSize,pxSize)
+if deleteImg == "True":
+	remove("PixelArt.png")
