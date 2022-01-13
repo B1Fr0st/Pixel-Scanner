@@ -2,6 +2,7 @@ from PIL import Image
 import time
 import pyperclip
 from os import remove
+from functools import cache
 #the only modules required are pyperclip and Pillow
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
 #TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
@@ -20,7 +21,7 @@ def download_image(image,name):
 	del response
 
 
-
+@cache
 def get_pixel(img_path,x,y):
     im = Image.open(img_path).convert('RGBA')
     r,g,b,a = im.getpixel((x,y))
@@ -66,6 +67,7 @@ def ReturnColors(img_path,pixSize,pSize):
   printProgressBar(0,width,prefix="Scanning:",suffix="Complete",length = 50)
   start = time.time()
   while row < height:
+      
       while pixel < width:
           pixCol = get_pixel(img_path,pixel,row)
           if pixCol in colors:
