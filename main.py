@@ -5,7 +5,6 @@ from os import remove
 from functools import cache
 #the only modules required are pyperclip and Pillow
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
-<<<<<<< HEAD:main.py
 #TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
 #TODO:Add way to copy raw data while using replit.https://art.pixilart.com/c78901132398980.png
 import requests,shutil
@@ -20,6 +19,11 @@ def download_image(image,name):
 	response.raw.decode_content = True
 	shutil.copyfileobj(response.raw,file)
 	del response
+=======
+#TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
+#TODO:Add way to copy raw data while using replit.
+import requests,shutil
+>>>>>>> origin/main:PixScanner.py
 =======
 #TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
 #TODO:Add way to copy raw data while using replit.
@@ -84,6 +88,7 @@ def ReturnColors(img_path,pixSize,pSize):
   start = time.time()
   while row < height:
 <<<<<<< HEAD:main.py
+<<<<<<< HEAD:main.py
     while pixel < width:
 			
       r,g,b,a = img.getpixel((pixel,row))
@@ -104,6 +109,8 @@ def ReturnColors(img_path,pixSize,pSize):
       
     printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
 =======
+=======
+>>>>>>> origin/main:PixScanner.py
       
       while pixel < width:
           pixCol = get_pixel(img_path,pixel,row)
@@ -175,7 +182,10 @@ else:
 pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = "PixelArt.png"
 <<<<<<< HEAD:main.py
+<<<<<<< HEAD:main.py
 =======
+=======
+>>>>>>> origin/main:PixScanner.py
 start = time.time()
 for i in range(0,pxSize):
 	get_pixel(imgPath,0,0)
