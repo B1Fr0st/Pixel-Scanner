@@ -5,7 +5,7 @@ from os import remove
 #the only modules required are pyperclip and Pillow
 #currently, 400x400 corrupts on row 27. [Reproduced twice.]
 #TODO:Make the user experience more friendly(Make url an input at beginning?)FINISHED
-#TODO:Add way to copy raw data while using replit.
+#TODO:Add way to copy raw data while using replit.https://art.pixilart.com/c78901132398980.png
 import requests,shutil
 
 
@@ -22,9 +22,8 @@ def download_image(image,name):
 
 
 def get_pixel(img_path,x,y):
-    im = Image.open(img_path).convert('RGBA')
-    r,g,b,a = im.getpixel((x,y))
-    return (r,g,b,a)
+  im = Image.open(img_path).convert('RGBA')
+    
 
 
 #progressbar designed by @greenstick on Stack Exchange
@@ -66,24 +65,25 @@ def ReturnColors(img_path,pixSize,pSize):
   printProgressBar(0,width,prefix="Scanning:",suffix="Complete",length = 50)
   start = time.time()
   while row < height:
-      while pixel < width:
-          pixCol = get_pixel(img_path,pixel,row)
-          if pixCol in colors:
-              pass
-          elif pixCol not in colors:
-              colors[pixCol] = str(len(colors))
-          bit = colors[pixCol]
-          pushArray += bit
-          pixel += pixSize
-      pixel = 0
-      if len(pushArray) == pSize:
-          row += pixSize
-          bitmap.append(pushArray)
-      else:
-        print("Image corruption on row %i.\n" % ((row-pixSize/2)/pixSize))
-
-      pushArray = ""
-      printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
+    while pixel < width:
+			
+      r,g,b,a = img.getpixel((pixel,row))
+      pixCol = (r,g,b,a)
+      if pixCol in colors:
+        pass
+      elif pixCol not in colors:
+        colors[pixCol] = str(len(colors))
+          
+      pushArray += colors[pixCol]
+      pixel += pixSize
+      
+    if len(pushArray) == pSize:
+      row += pixSize
+      bitmap.append(pushArray)
+    pixel = 0
+    pushArray = ""
+      
+    printProgressBar((row-pixSize/2),width,prefix="Scanning:",suffix="Complete",length = 50)
   end = time.time()
   elapsed = end-start
   use_map = {v:k for k,v in colors.items()}
@@ -134,14 +134,6 @@ else:
 	download_image(url,"PixelArt.png")
 pxSize = int(input("Pixel size specified on Pixilart:"))
 imgPath = "PixelArt.png"
-start = time.time()
-for i in range(0,pxSize):
-	get_pixel(imgPath,0,0)
-
-finish = time.time()
-elapse = finish-start
-print("Time taken to read %i pixels:%i seconds"%(pxSize,elapse))
-print("Estimated image conversion time:%i minutes"%(elapse*pxSize/60))
 imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
