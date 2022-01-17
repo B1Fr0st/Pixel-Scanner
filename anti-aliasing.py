@@ -31,4 +31,4 @@ def aliased_pixel(x,y,img_var,pixelSize):
     return (r,g,b,a)
     
 
-print(aliased_pixel(0,0,Image.open("C:\\Users\\UnderTale\\AppData\\Local\\Programs\\Python\\Python39\\PixScanner\\PixelArt.png").convert("RGBA"),1))
+print(aliased_pixel(0,0,Image.open("").convert("RGBA"),1))

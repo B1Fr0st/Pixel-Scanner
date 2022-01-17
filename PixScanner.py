@@ -152,7 +152,7 @@ else:
   url = input("URL:")#this is the image I am trying to use.
   download_image(url,"PixelArt.png")
 pxSize = int(input("Pixel size specified on Pixilart:"))
-imgPath = "C:\\Users\\UnderTale\\Pictures\\Screenshot.png"
+imgPath = ""
 imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
