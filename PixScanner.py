@@ -142,20 +142,20 @@ def ReturnColors(img_path,pixSize,pSize):
 
 
 
-isUrl = input("Did you download the image already or are you going to use a url? [True/False; True for downloaded]")
 
-if isUrl == "True":
-  deleteImg = input("Would you like to delete the image after it is converted?[True\\False]")
 	
-else:
-  deleteImg = True
-  url = input("URL:")#this is the image I am trying to use.
-  download_image(url,"PixelArt.png")
+
+print("Welcome to the Pixel-Scanner project!")
+time.sleep(1)
+print("Please have your image address copied and ready to go.")
+time.sleep(1)
+print("Please input your image address.")
+url = input("Image Address:")#this is the image I am trying to use.
+download_image(url,"PixelArt.png")
 pxSize = int(input("Pixel size specified on Pixilart:"))
-imgPath = ""
-imgg = Image.open(imgPath).convert("RGB")
+imgPath = "PixelArt.png"
+imgg = Image.open(imgPath).convert("RGBA")
 width,height = imgg.size
 pixSize = width/pxSize
 ReturnColors(imgPath,pixSize,pxSize)
-if deleteImg == "True":
-	remove("PixelArt.png")
+remove("PixelArt.png")
