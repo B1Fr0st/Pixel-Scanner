@@ -21,8 +21,8 @@ def download_image(image,name):
 
 def get_pixel(x,y,img):
   try:
-    r,g,b,a = img.getpixel((x,y))
-    return (r,g,b,a)
+    r,g,b = img.getpixel((x,y))
+    return (r,g,b)
   except IndexError:
     return (255,255,255,255)
     
@@ -79,33 +79,28 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
 
 def ReturnColors(img_path,pixSize,pSize):
   print("Scanning all pixels to grab all possible colors.")
-  img = Image.open(img_path).convert('RGBA')
+  img = Image.open(img_path).convert('RGB')
   width,height = img.size
   colors = {}
-  row = pixSize/2
-  pixel = pixSize/2
+  row = 0
+  pixel = 0
   bitmap = []
   pushArray = ""
   printProgressBar(0,width,prefix="Scanning:",suffix="Complete",length = 50)
   start = time.time()
   while row < height:
     while pixel < width:
-			
-      
       pixCol = get_pixel(pixel,row,img)
-      if pixCol in colors:
-        pass
-      elif pixCol not in colors:
+      if pixCol not in colors:
         colors[pixCol] = str(len(colors))
           
       pushArray += colors[pixCol]
       pixel += pixSize
       
-    if len(pushArray) == pSize:
-      row += pixSize
-      bitmap.append(pushArray)
-    else:
-      print("Whoops, it corrupted, with len:%i on row:%i" % (len(pushArray),row))
+    
+    row += pixSize
+    bitmap.append(pushArray)
+
     pixel = 0
     pushArray = ""
       
@@ -151,10 +146,10 @@ print("Please have your image address copied and ready to go.")
 time.sleep(1)
 print("Please input your image address.")
 url = input("Image Address:")#this is the image I am trying to use.
-download_image(url,"PixelArt.png")
+download_image(url,"PixelArt.jpeg")
 pxSize = int(input("Pixel size specified on Pixilart:"))
-imgPath = "PixelArt.png"
-imgg = Image.open(imgPath).convert("RGBA")
+imgPath = "PixelArt.jpeg"
+imgg = Image.open(imgPath).convert("RGB")
 width,height = imgg.size
 pixSize = width/pxSize
 ReturnColors(imgPath,pixSize,pxSize)
